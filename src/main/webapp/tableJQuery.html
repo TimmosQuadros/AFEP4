@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script>
+            $(document).ready(function ()
+            {
+                $("#getMembersButton").click(function ()
+                {
+                    memberRefresh();
+                });
+
+                function memberRefresh()
+                {
+                    $.getJSON("http://localhost:8080/AngularJquery/api/member/all", function (result)
+                    {
+                        $('#tableMembers tbody tr').remove();
+                        var rows = "";
+                        $.each(result, function (i, member)
+                        {
+                            rows += '<tr><td>' + member.id + '</td><td>' + member.age + '</td><td>' + member.eyeColor + '</td><td>' + member.name + '</td><td>' + member.email + '</td><td>' + member.friends.length + '</td></tr>';
+                        });
+
+                        $('#tableMembers tbody').append(rows);
+                    });
+                }
+            });
+
+        </script>
+    </head>
+    <body>
+        <div>
+            <table class="table" id='tableMembers' border="1">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Age</th>
+                        <th>Eyecolor</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Friends</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+
+        </div>
+        <a href='index.html'>Back</a>
+        <input type="submit" value="getMembers" id="getMembersButton" />
+    </body>
+</html>
